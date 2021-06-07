@@ -44,7 +44,7 @@
         var hour = 0;
         var hour2 = 0;
         var minute = 0;
-        var minute = 0;
+        var minute2 = 0;
         var second = 0;
         var second2 = 0;
         var timerRun;
@@ -101,6 +101,7 @@
         {
             hour = e.target.value;
             hour2 = e.target.value;
+            console.log(hour2);
             
         });
         select2.addEventListener("change",function(e)
@@ -120,13 +121,13 @@
 
         button1.onclick = function()
         {
+            hour = hour2;
+            minute = minute2;
+            second = second2;
             h2.innerHTML = 
             (hour2<10 ? "0"+hour2:hour2)+":"+
             (minute2<10 ? "0"+minute2:minute2)+":"+
             (second2<10 ? "0"+second2:second2);
-            hour = hour2;
-            minute = minute2;
-            second = second2;
         }
         button2.onclick = function()
         {
