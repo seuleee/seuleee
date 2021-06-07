@@ -137,11 +137,15 @@
                 {
                     timerRun = setInterval(tr(),1000);
                 }
+                button2.innerHTML = "타이머정지";
+                
                 button2.classList.toggle("timerSwitch");
             }else
             {
                 button2.classList.toggle("timerSwitch");
+                button2.innerHTML = "타이머시작";
                 clearInterval(timerRun);
+
             }
         }
 
