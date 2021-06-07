@@ -49,6 +49,7 @@
         var second2 = 0;
         var timerRun;
         var start = true;
+        var set = false;
         
 
         
@@ -62,13 +63,11 @@
             option.value = i;
             option.innerHTML = i;
             select1.appendChild(option);
-
-            
         }
         body.appendChild(select1);
 
         //60까지 분
-        for(var i =0; i<=60; i++)
+        for(var i =0; i<60; i++)
         {
             var option = document.createElement("option");
             option.value = i;
@@ -78,7 +77,7 @@
         body.appendChild(select2);
         
         //60까지 초
-        for(var i =0; i<=60; i++)
+        for(var i =0; i<60; i++)
         {
             var option = document.createElement("option");
             option.value = i;
@@ -101,7 +100,6 @@
         {
             hour = e.target.value;
             hour2 = e.target.value;
-            console.log(hour2);
             
         });
         select2.addEventListener("change",function(e)
@@ -121,6 +119,7 @@
 
         button1.onclick = function()
         {
+            set = true;
             hour = hour2;
             minute = minute2;
             second = second2;
@@ -131,21 +130,23 @@
         }
         button2.onclick = function()
         {
-            if(!(button2.classList.contains("timerSwitch")))
+            if(set)
             {
-                if(start)
+                if(!(button2.classList.contains("timerSwitch")))
                 {
-                    timerRun = setInterval(tr(),1000);
+                    if(start)
+                    {
+                        timerRun = setInterval(tr(),1000);
+                    }
+                    button2.innerHTML = "타이머정지";
+                    
+                    button2.classList.toggle("timerSwitch");
+                }else
+                {
+                    button2.classList.toggle("timerSwitch");
+                    button2.innerHTML = "타이머시작";
+                    clearInterval(timerRun);
                 }
-                button2.innerHTML = "타이머정지";
-                
-                button2.classList.toggle("timerSwitch");
-            }else
-            {
-                button2.classList.toggle("timerSwitch");
-                button2.innerHTML = "타이머시작";
-                clearInterval(timerRun);
-
             }
         }
 
