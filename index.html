@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding-left: 0;}
+        h3,h2{margin: 10px;}
+        select{ margin: 0 5px; margin-left: 10px;}
+        button{margin: 0 5px;}
+    </style>
+</head>
+<body id="body">
+    
+    <!-- 
+        네이버 타이머 도전하기
+        
+        조건
+        1.select태그는 시간:99 / 분:60 /초:60으로 화면이 
+        생성될때 엘리먼트 생성기법으로 처리
+        
+        2.시간설정 버튼을 클릭하면 시간이 세팅됩니다.
+        3.타이머 시작버튼을 토글형태로 타이머가 동작중이라면
+        일시정지 버튼으로 활성화 됩니다.
+        4.사용자가 버튼을 잘못클릭하는 경우를 고려하여
+        어떠한 경우라도 중복으로 타이밍이 발생하면안됩니다.
+        
+     -->
+
+    <script>
+        // 타입 document.element로 생성
+
+        var body = document.querySelector("body");
+
+        var h3 = document.createElement("h3");
+        var select1 = document.createElement("select");
+        var select2 = document.createElement("select");
+        var select3 = document.createElement("select");
+        var button1 = document.createElement("button");
+        var button2 = document.createElement("button");
+        var h2 = document.createElement("h2");
+        var hour = 0;
+        var hour2 = 0;
+        var minute = 0;
+        var minute = 0;
+        var second = 0;
+        var second2 = 0;
+        var timerRun;
+        var start = true;
+        
+
+        
+        h3.innerHTML ="시간을 선택하세요";
+        body.appendChild(h3);
+
+        //99까지 시
+        for(var i =0; i<=99; i++)
+        {
+            var option = document.createElement("option");
+            option.value = i;
+            option.innerHTML = i;
+            select1.appendChild(option);
+
+            
+        }
+        body.appendChild(select1);
+
+        //60까지 분
+        for(var i =0; i<=60; i++)
+        {
+            var option = document.createElement("option");
+            option.value = i;
+            option.innerHTML = i;
+            select2.appendChild(option);
+        }
+        body.appendChild(select2);
+        
+        //60까지 초
+        for(var i =0; i<=60; i++)
+        {
+            var option = document.createElement("option");
+            option.value = i;
+            option.innerHTML = i;
+            select3.appendChild(option);
+        }
+        body.appendChild(select3);
+        
+        button1.innerHTML = "시간설정";
+        body.appendChild(button1);
+
+        button2.innerHTML = "타이머시작";
+        body.appendChild(button2);
+
+        h2.innerHTML = "00:00:00";
+        body.appendChild(h2);
+        
+        // 시분초 이벤트핸들러
+        select1.addEventListener("change",function(e)
+        {
+            hour = e.target.value;
+            hour2 = e.target.value;
+            
+        });
+        select2.addEventListener("change",function(e)
+        {
+            minute = e.target.value;
+            minute2 = e.target.value;
+
+        });
+        select3.addEventListener("change",function(e)
+        {
+            second = e.target.value;
+            second2 = e.target.value;
+
+        });
+
+        // 시간설정 ,타이머시작 이벤트 핸들러
+
+        button1.onclick = function()
+        {
+            h2.innerHTML = 
+            (hour2<10 ? "0"+hour2:hour2)+":"+
+            (minute2<10 ? "0"+minute2:minute2)+":"+
+            (second2<10 ? "0"+second2:second2);
+            hour = hour2;
+            minute = minute2;
+            second = second2;
+        }
+        button2.onclick = function()
+        {
+            if(!(button2.classList.contains("timerSwitch")))
+            {
+                if(start)
+                {
+                    timerRun = setInterval(tr(),1000);
+                }
+                button2.classList.toggle("timerSwitch");
+            }else
+            {
+                button2.classList.toggle("timerSwitch");
+                clearInterval(timerRun);
+            }
+        }
+
+        function tr()
+        {
+            return function ()
+            {
+                if(minute==0 && hour==0 && second==0)
+                {
+                    clearInterval(timerRun);
+                }
+                else
+                {
+                    if(second ==0)
+                    {
+                        second = 59;
+                        if(minute == 0)
+                        {
+                            minute = 59;
+                            if(hour != 0) hour--;
+                        }else minute--;
+                    }else second--;
+                }
+    
+                h2.innerHTML = 
+                (hour<10 ? "0"+hour:hour)+":"+
+                (minute<10 ? "0"+minute:minute)+":"+
+                (second<10 ? "0"+second:second);
+            } 
+        }
+
+
+    </script>
+</body>
+</html>
